@@ -1,0 +1,9 @@
+{
+    "version": "0.0.1",
+    "description": "The company system",
+    "objlib": "&BINLIB",
+    "preUsrlibl": ["&BINLIB"],
+    "includePath": ["qrpgleref"],
+    "setIBMiEnvCmd": [],
+    "repository" : "https://github.com/worksofliam/company_system"
+}
