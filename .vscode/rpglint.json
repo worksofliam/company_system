@@ -6,7 +6,7 @@
   "NoOCCURS": true,
   "NoSELECTAll": true,
   "UppercaseConstants": true,
-  "IncorrectVariableCase": false,
+  "IncorrectVariableCase": true,
   "StringLiteralDupe": true,
   "NoSQLJoins": true,
   "NoCTDATA": true,
