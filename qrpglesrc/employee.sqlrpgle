@@ -1,8 +1,8 @@
 **free
 Ctl-Opt DFTACTGRP(*no);
 
-Dcl-Pi EMPLOYEES;
-  DEPTNO Char(3);
+Dcl-Pi EMPLOYEE;
+  EMPNO Char(6);
 End-Pi;
 
 // ---------------------------------------------------------------*
@@ -11,7 +11,9 @@ End-Pi;
 
 // ---------------------------------------------------------------*
 
-Dcl-F emps WORKSTN Sfile(SFLDta:Rrn) IndDS(WkStnInd) InfDS(fileinfo);
+// Dcl-F emps WORKSTN Sfile(SFLDta:Rrn) IndDS(WkStnInd) InfDS(fileinfo);
+
+Dcl-C SQLSUCCESS '00000';
 
 Dcl-S Exit Ind Inz(*Off);
 
@@ -85,30 +87,34 @@ Dcl-Proc LoadSubfile;
   ClearSubfile();
 
   EXEC SQL DECLARE empCur CURSOR FOR
-              SELECT EMPNO, FIRSTNME, LASTNAME, JOB
+              SELECT 
+                EMPNO, 
+                FIRSTNME, MIDINIT, LASTNAME, 
+                JOB, HIREDATE, EDLEVEL,
+                SALARY, BONUS, COMM
               FROM EMPLOYEE
               WHERE WORKDEPT = :DEPTNO;
 
   EXEC SQL OPEN empCur;
 
-  if (sqlstate = '00000');
+  if (sqlstate = SQLSUCCESS);
 
-    dou (sqlstate <> '00000');
+    dou (sqlstate <> SQLSUCCESS);
       EXEC SQL
-                  FETCH NEXT FROM empCur
-                  INTO :Employee.EMPNO,
-                       :Employee.FIRSTNME,
-                       :Employee.LASTNAME,
-                       :Employee.JOB;
+          FETCH NEXT FROM empCur
+          INTO :Employee.EMPNO,
+               :Employee.FIRSTNME,
+               :Employee.MIDINIT,
+               :Employee.LASTNAME,
+               :Employee.JOB,
+               :Employee.HIREDATE,
+               :Employee.EDLEVEL,
+               :Employee.SALARY,
+               :Employee.BONUS,
+               :Employee.COMM;
 
-      if (sqlstate = '00000');
-        XID   = Employee.EMPNO;
-        XNAME = %TrimR(Employee.LASTNAME) + ', '
-                         + %TrimR(Employee.FIRSTNME);
-        XJOB  = Employee.JOB;
-
-        rrn += 1;
-        Write SFLDTA;
+      if (sqlstate = SQLSUCCESS);
+        // Write to display file here.
       endif;
     enddo;
 

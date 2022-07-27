@@ -1,0 +1,18 @@
+{
+  "BlankStructNamesCheck": true,
+  "QualifiedCheck": false,
+  "PrototypeCheck": false,
+  "ForceOptionalParens": true,
+  "NoOCCURS": true,
+  "NoSELECTAll": true,
+  "UppercaseConstants": true,
+  "IncorrectVariableCase": false,
+  "StringLiteralDupe": true,
+  "NoSQLJoins": true,
+  "NoCTDATA": true,
+  "PrettyComments": true,
+  "NoGlobalSubroutines": true,
+  "NoLocalSubroutines": true,
+  "UppercaseDirectives": true,
+  "NoUnreferenced": true
+}
